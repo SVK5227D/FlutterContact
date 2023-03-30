@@ -79,7 +79,8 @@ class ContactAdd extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      
+      bottomNavigationBar: FloatingActionButton(
         onPressed: () {
           Navigator.push(
               context,

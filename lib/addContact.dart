@@ -1,4 +1,10 @@
+// ignore: duplicate_ignore
+// ignore: file_names
+// ignore_for_file: file_names, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
+
+import 'listContact.dart';
 
 class ContactAdd2 extends StatelessWidget {
   const ContactAdd2({Key? key}) : super(key: key);
@@ -11,21 +17,24 @@ class ContactAdd2 extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Add Contact'),
         ),
-        body: const ContactAdd3(),
+        body: ContactAdd3(),
       ),
     );
   }
 }
 
+// ignore: must_be_immutable
 class ContactAdd3 extends StatelessWidget {
-  const ContactAdd3({Key? key}) : super(key: key);
+  List<Contact> contact = List.empty(growable: true);
+
+  // ContactAdd3({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: const [
-          Padding(
+        children: [
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: TextField(
               decoration: InputDecoration(
@@ -34,7 +43,7 @@ class ContactAdd3 extends StatelessWidget {
                   hintText: '@example(Ronaldo)'),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: TextField(
               decoration: InputDecoration(
@@ -42,9 +51,10 @@ class ContactAdd3 extends StatelessWidget {
                   labelText: 'Mobile Number',
                   hintText: '@example(1234567890)'),
               keyboardType: TextInputType.number,
+              maxLength: 10,
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: TextField(
               decoration: InputDecoration(
@@ -54,17 +64,31 @@ class ContactAdd3 extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 120, vertical: 30),
-              child: FilledButton(
-                  onPressed: null,
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(fontSize: 20),
-                  )))
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 120, vertical: 30),
+            child: FilledButton(
+              onPressed: null,
+              child: Text(
+                'Submit',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: contact.length,
+              itemBuilder: (context, index) => getRow(index),
+            ),
+          )
         ],
       ),
     );
-
   }
+}
+
+Widget getRow(int index) {
+  return ListTile(
+    title: Column(
+        children: [Text(contact[index].name), Text(contact[index].contact)]),
+  );
 }
