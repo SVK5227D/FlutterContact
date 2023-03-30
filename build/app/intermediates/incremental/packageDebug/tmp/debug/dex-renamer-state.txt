@@ -1,4 +1,4 @@
-#Thu Mar 30 16:58:05 IST 2023
+#Thu Mar 30 18:13:47 IST 2023
 base.0=/home/e2infoadmin/StudioProjects/sample/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

@@ -92,11 +92,16 @@ class ContactAdd3 extends StatelessWidget {
                   }
                 }
                 Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext context) => ContactAdd(
-                    name : name,
-                    contact : contact,
-                    email :email
-                  ))
+                  MaterialPageRoute(builder: (context) => ContactAdd(
+                    // name : name,
+                    // contact : contact,
+                    // email :email,
+                    //   (contacts = List.empty(growable: true)) as List<String>, name: '', contact: '', email: '',
+                  ),
+                   settings: RouteSettings(
+                     arguments: contacts
+                   ),
+                  )
                 );
               },
               child: const Text(
