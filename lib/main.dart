@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'contact.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'page.dart';
+
+void main() => {runApp(MyApp())};
+
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Sample Page',
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AddContact(),
+      home: MainPage(),
     );
   }
 }

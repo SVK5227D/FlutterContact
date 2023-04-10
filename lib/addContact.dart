@@ -1,52 +1,47 @@
-// ignore: duplicate_ignore
-// ignore: file_names
-// ignore_for_file: file_names, use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 
+import 'contactClass.dart';
 import 'listContact.dart';
+import 'page.dart';
 
-class ContactAdd2 extends StatelessWidget {
-  const ContactAdd2({Key? key}) : super(key: key);
+class FormContact extends StatefulWidget {
+  const FormContact({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Add Contact'),
-        ),
-        body: ContactAdd3(),
-      ),
-    );
-  }
+  State<FormContact> createState() => _FormContactState();
 }
 
-// ignore: must_be_immutable
-class ContactAdd3 extends StatelessWidget {
-  List<Contact> contact = List.empty(growable: true);
+class _FormContactState extends State<FormContact> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
-  // ContactAdd3({Key? key}) : super(key: key);
+  List<Contact> contactList = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Add Contact'),
+      ),
       body: ListView(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: TextField(
-              decoration: InputDecoration(
+              controller: nameController,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Name',
                   hintText: '@example(Ronaldo)'),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: TextField(
-              decoration: InputDecoration(
+              controller: numberController,
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Mobile Number',
                   hintText: '@example(1234567890)'),
@@ -54,41 +49,47 @@ class ContactAdd3 extends StatelessWidget {
               maxLength: 10,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
             child: TextField(
-              decoration: InputDecoration(
+              controller: emailController,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Email-Id',
+                labelText: 'Emailid',
                 hintText: '@example(xyz123@gmail.com)',
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 120, vertical: 30),
-            child: FilledButton(
-              onPressed: null,
-              child: Text(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 120, vertical: 30),
+            child: ElevatedButton(
+              onPressed: () {
+                String name = nameController.text.trim();
+                String contact = numberController.text.trim();
+                String email = emailController.text.trim();
+
+                if (name.isNotEmpty && contact.isNotEmpty) {
+                  contactList
+                      .add(Contact(name: name, contact: contact, email: email));
+                }
+                nameController.text = '';
+                numberController.text = '';
+                emailController.text = '';
+                print(contactList.length);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ListContact(name,contact as int)));
+              },
+              child: const Text(
                 'Submit',
                 style: TextStyle(fontSize: 20),
               ),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: contact.length,
-              itemBuilder: (context, index) => getRow(index),
-            ),
-          )
         ],
       ),
     );
   }
-}
-
-Widget getRow(int index) {
-  return ListTile(
-    title: Column(
-        children: [Text(contact[index].name), Text(contact[index].contact)]),
-  );
 }
